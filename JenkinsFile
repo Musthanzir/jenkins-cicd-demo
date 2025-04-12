@@ -1,47 +1,44 @@
 pipeline {
-    agent any  // Use any available agent (master or slave)
+    agent any
 
     stages {
         stage('Build') {
             steps {
-                script {
-                    echo "Building the project"
-                    // Example build command (you can replace with your actual build process)
-                    bat 'echo Build successful'
-                }
+                bat 'echo Building the application...'
             }
         }
 
         stage('Test') {
             steps {
-                script {
-                    echo "Running tests"
-                    // Example test command (replace with your actual test process)
-                    bat 'echo Tests passed'
-                }
+                bat 'echo Running tests...'
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy to Staging') {
             steps {
-                script {
-                    echo "Deploying to staging environment"
-                    // Example deploy command (replace with your actual deploy process)
-                    bat 'echo Deployment successful'
-                }
+                bat 'xcopy index.htm C:\Users\Musthanzir\jenkins-ci-app\jenkins-cicd-demo\Staging /Y'
+            }
+        }
+
+        stage('Approval for Production') {
+            steps {
+                input message: 'Deploy to Production?'
+            }
+        }
+
+        stage('Deploy to Production') {
+            steps {
+                bat 'xcopy index.htm C:\Users\Musthanzir\jenkins-ci-app\jenkins-cicd-demo\Production /Y'
             }
         }
     }
 
     post {
-        always {
-            echo "Pipeline finished"
+        failure {
+            bat 'echo Build failed!'
         }
         success {
-            echo "Pipeline completed successfully"
-        }
-        failure {
-            echo "Pipeline failed"
+            bat 'echo Pipeline completed successfully!'
         }
     }
 }
