@@ -16,7 +16,7 @@ pipeline {
 
         stage('Deploy to Staging') {
             steps {
-                bat 'xcopy index.html "C:\Users\Musthanzir\jenkins-ci-app\jenkins-cicd-demo\Staging" /Y'
+                bat 'xcopy index.htm C:\\Users\\Musthanzir\\jenkins-ci-app\\jenkins-cicd-demo\\C:\\JenkinsDeploy\\staging /Y'
             }
         }
 
@@ -28,7 +28,7 @@ pipeline {
 
         stage('Deploy to Production') {
             steps {
-                bat 'xcopy index.html "C:\Users\Musthanzir\jenkins-ci-app\jenkins-cicd-demo\Production" /Y'
+                bat 'xcopy index.htm C:\\Users\\Musthanzir\\jenkins-ci-app\\jenkins-cicd-demo\\C:\\JenkinsDeploy\\production /Y'
             }
         }
     }
